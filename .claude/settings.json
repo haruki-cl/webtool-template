@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./**/.dev.vars)",
+      "Read(./**/.env)",
+      "Read(./**/.env.*)",
+      "Read(./secrets/**)",
+      "Edit(./wrangler.jsonc)",
+      "Edit(./scripts/**)",
+      "Edit(./.claude/**)"
+    ]
+  }
+}
