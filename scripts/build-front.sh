@@ -7,8 +7,12 @@ cd "$(dirname "$0")/.."
 if [ -f frontend/package.json ]; then
   # npm は package.json のあるディレクトリの .npmrc しか読まないので、ルートの .npmrc を frontend/ にも置く
   [ -f frontend/.npmrc ] || cp .npmrc frontend/.npmrc
+  # Workers Builds はビルド環境に Cloudflare のトークンを渡してくる。
+  # 参加者のコードと npm パッケージが動く frontend/ の工程では、それを外しておく
   (
     cd frontend
+    export -n CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID CLOUDFLARE_API_BASE_URL 2>/dev/null || true
+    unset CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID CLOUDFLARE_API_BASE_URL
     if [ -f package-lock.json ]; then npm ci; else npm install; fi
     npm run build
   )
