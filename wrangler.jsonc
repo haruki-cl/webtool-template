@@ -3,7 +3,7 @@
   "main": "backend/src/index.ts",
   // .npmrc の min-release-age で入る Wrangler は 1 週間ほど前の版なので、日付もそれより前にする
   "compatibility_date": "2026-10-13",
-  // 試しでは workers.dev で見る。本番ではカスタムドメインを使い、ここを false にする
+  // 公開 URL は https://<Project name>.<代表者のサブドメイン>.workers.dev
   "workers_dev": true,
   "preview_urls": false,
   "assets": {
