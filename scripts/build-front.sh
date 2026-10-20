@@ -5,12 +5,13 @@ set -eu
 cd "$(dirname "$0")/.."
 
 if [ -f frontend/package.json ]; then
-  if [ -f frontend/package-lock.json ]; then
-    npm --prefix frontend ci
-  else
-    npm --prefix frontend install
-  fi
-  npm --prefix frontend run build
+  # npm は package.json のあるディレクトリの .npmrc しか読まないので、ルートの .npmrc を frontend/ にも置く
+  [ -f frontend/.npmrc ] || cp .npmrc frontend/.npmrc
+  (
+    cd frontend
+    if [ -f package-lock.json ]; then npm ci; else npm install; fi
+    npm run build
+  )
 else
   echo "frontend/ がまだないので、仮ページを配信します"
   rm -rf frontend/dist

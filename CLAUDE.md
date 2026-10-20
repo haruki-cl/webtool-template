@@ -14,5 +14,6 @@
 - API は backend/src/ に書く。D1 のバインディング名は `DB`
 - テーブル定義は backend/migrations/ に SQL で置く。手元では `npm run db:migrate:local` で当てる
 - frontend/ は Vite で作り、`npm run build` の出力先は frontend/dist のままにする
+- frontend/ を作ったら、ルートの `.npmrc` を frontend/ にもコピーする（npm は package.json のあるディレクトリの .npmrc しか読まない）
 - 手元で動かすときは、ルートで `npm run build` のあと `npm run dev`
 - `.dev.vars` や `.env` は読まない
