@@ -1,0 +1,16 @@
+# 参加者の手元の環境。docker compose up -d のあと docker compose exec app bash で中に入る。
+# 主催者が管理する。参加者は変更しない。
+services:
+  app:
+    image: webtool
+    build: .
+    init: true
+    volumes:
+      - .:/work
+      - home:/home/node
+    ports:
+      - "127.0.0.1:8787:8787"
+
+volumes:
+  home:
+    name: webtool-home

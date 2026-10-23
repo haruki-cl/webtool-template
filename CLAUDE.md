@@ -5,7 +5,7 @@
 
 ## 触らないファイル
 
-- `wrangler.jsonc`、`scripts/`、`.claude/`、`package.json` の scripts は主催者が管理している。変更するとデプロイが壊れるので、変更しない
+- `wrangler.jsonc`、`scripts/`、`.claude/`、`Dockerfile`、`compose.yaml`、`package.json` の scripts は主催者が管理している。変更するとデプロイや手元の環境が壊れるので、変更しない
 - 依存パッケージの追加（`npm install`）はしてよい
 - デプロイは main への push で自動的に行われる。`wrangler deploy` を手元で実行しない
 
@@ -15,5 +15,5 @@
 - テーブル定義は backend/migrations/ に SQL で置く。手元では `npm run db:migrate:local` で当てる
 - frontend/ は Vite で作り、`npm run build` の出力先は frontend/dist のままにする
 - frontend/ を作ったら、ルートの `.npmrc` を frontend/ にもコピーする（npm は package.json のあるディレクトリの .npmrc しか読まない）
-- 手元で動かすときは、ルートで `npm run build` のあと `npm run dev`
+- 手元で動かすときは、コンテナの中（`docker compose exec app bash`）で、ルートで `npm run build` のあと `npm run dev`。PC 側では npm を実行しない
 - `.dev.vars` や `.env` は読まない
