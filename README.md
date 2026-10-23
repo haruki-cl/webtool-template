@@ -24,32 +24,39 @@
 - `backend/src/index.ts`：Hono の API。`/api/health` だけ入っている
 - `backend/migrations/`：テーブル定義の SQL を置く
 - `frontend/`：Vite で作る。まだなければ仮ページが配信される
-- `Dockerfile`、`compose.yaml`：参加者の手元の環境
+- `Dockerfile`、`compose.yaml`、`bootstrap.yaml`：参加者の手元の環境
 - `wrangler.jsonc`、`scripts/`、`.claude/`：講師が管理している。変更しない
 
 ## 手元で動かす（参加者）
 
 PC には Docker Desktop だけを入れる。git も Node も PC には入れない。
 
-### 最初の1回：イメージを作り、リポジトリを取ってくる
+### 最初の1回：使い捨てコンテナでログインし、リポジトリを取ってくる
+
+作業用のフォルダで `bootstrap.yaml` を取ってきて、使い捨てコンテナに入る。
+初回はイメージ `webtool` を作るので 2〜5 分かかる。
 
 ```bash
-docker build -t webtool https://github.com/haruki-cl/webtool-template.git
-docker run -it --rm -v "$PWD":/work -v webtool-home:/home/node webtool bash
+curl -fsSLO https://raw.githubusercontent.com/haruki-cl/webtool-template/main/bootstrap.yaml
+docker compose -f bootstrap.yaml run --rm shell
 ```
 
-Windows の PowerShell では `"$PWD"` を `"${PWD}"` と書く。
-コンテナの中で、班の GitHub アカウントにログインしてから clone する。
-`gh auth login` が表示する URL とコードを、PC のブラウザで開いて入力する。
+Windows の PowerShell では `curl` を `curl.exe` と書く。
+コンテナの中で、班の GitHub アカウントと Claude Code にログインしてから clone する。
+どちらも表示された URL を PC のブラウザで開く。
 
 ```bash
 gh auth login -p https -w
+claude auth login
+claude auth status             # "loggedIn": true になっていればよい
 gh auth setup-git
 git config --global user.name "team-a"
 git config --global user.email "team-a@example.com"
 gh repo clone <班の GitHub アカウント>/team-a
 exit
 ```
+
+ログイン情報は `webtool-home` というボリュームに残るので、2回目からは要らない。
 
 ### 以後：コンテナに入って作業する
 
@@ -60,8 +67,6 @@ docker compose exec app bash
 ```
 
 コンテナの中では、普通のターミナルと同じに使える。
-`claude` の初回は、表示される URL を PC のブラウザで開いてログインする。
-ログイン情報は `webtool-home` というボリュームに残るので、2回目からは要らない。
 
 ```bash
 npm install

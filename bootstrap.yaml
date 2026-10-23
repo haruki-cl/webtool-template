@@ -1,0 +1,17 @@
+# 最初の1回だけ使う。PC に取ってきて、次で使い捨てコンテナに入る。
+#   docker compose -f bootstrap.yaml run --rm shell
+# 中で gh auth login、claude のログイン、gh repo clone をする。
+# イメージ webtool がなければ、テンプレートの Dockerfile から作る。主催者が管理する。
+services:
+  shell:
+    image: webtool
+    build:
+      context: https://github.com/haruki-cl/webtool-template.git
+    volumes:
+      - .:/work
+      - home:/home/node
+    command: bash
+
+volumes:
+  home:
+    name: webtool-home

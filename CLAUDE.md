@@ -5,7 +5,7 @@
 
 ## 触らないファイル
 
-- `wrangler.jsonc`、`scripts/`、`.claude/`、`Dockerfile`、`compose.yaml`、`package.json` の scripts は主催者が管理している。変更するとデプロイや手元の環境が壊れるので、変更しない
+- `wrangler.jsonc`、`scripts/`、`.claude/`、`Dockerfile`、`compose.yaml`、`bootstrap.yaml`、`package.json` の scripts は主催者が管理している。変更するとデプロイや手元の環境が壊れるので、変更しない
 - 依存パッケージの追加（`npm install`）はしてよい
 - デプロイは main への push で自動的に行われる。`wrangler deploy` を手元で実行しない
 
