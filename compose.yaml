@@ -5,6 +5,8 @@ services:
     init: true
     volumes:
       - .:/work
+      # Claude Code のハンズオン用。班のリポジトリの外に置き、CLAUDE.md や git が混ざらないようにする
+      - ../handson:/handson
       - home:/home/node
     ports:
       - "127.0.0.1:8787:8787"
