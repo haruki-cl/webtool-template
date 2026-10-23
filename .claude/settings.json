@@ -7,7 +7,7 @@
       "Read(./secrets/**)",
       "Edit(./wrangler.jsonc)",
       "Edit(./scripts/**)",
-      "Edit(./.claude/**)"
+      "Edit(./.claude/*json)"
     ]
   }
 }
