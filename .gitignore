@@ -2,3 +2,7 @@ node_modules/
 dist/
 .dev.vars
 .wrangler/
+# OS が勝手に作るファイル（Mac の Finder、Windows のエクスプローラー）
+.DS_Store
+Thumbs.db
+desktop.ini
