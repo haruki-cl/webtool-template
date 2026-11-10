@@ -18,3 +18,5 @@
 - frontend/ を作ったら、ルートの `.npmrc` を frontend/ にもコピーする（npm は package.json のあるディレクトリの .npmrc しか読まない）
 - 手元で動かすときは、コンテナの中（`docker compose exec app bash`）で、ルートで `npm run build` のあと `npm run dev`。PC 側では npm を実行しない
 - `.dev.vars` や `.env` は読まない
+- ブラウザを動かすツール（Playwright など）は入れない。画面の確認は利用者がブラウザで行う。API の確認は curl などで直接リクエストを送る
+- `npm run build` と `npm run dev` は、頼まれたとき以外は実行しない（利用者が別のターミナルで動かしている）。API を確かめるために起動したときは、終わったら必ず止める
